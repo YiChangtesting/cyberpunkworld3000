@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>能力值測驗</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="background-story">
+        <h1>能力值測驗</h1>
+        <p>在西元3000年的Cyberpunk世界中，城市高樓林立、霓虹燈閃爍。儘管科技高度發達，社會系統卻顯露出不足之處、醫療資源的分配極度不均，許多人面臨缺乏醫療資源的困境，在等待治療時失去了生命。而在這個貌似科技繁榮的未來世界，有一個角落正在被世界遺棄，裡面充斥著等待的被救援的人們。</p>
+        <p>這時候，卻有一群人組起了團隊，準備前往那個沒有人願意面對的角落…</p>
+        <button onclick="startQuiz()">開始測驗</button>
+    </div>
+    <div class="container" id="quiz-container" style="display: none;">
+        <form id="quiz-form">
+            <div class="question" id="question1">
+                <p>在一個霓虹燈閃爍的夜晚，你的隊伍剛接收到一個緊急求救信號，時間緊迫，你會如何行動？</p>
+                <label><input type="radio" name="q1" value="3" required> A. 立刻無條件前往提供援助</label><br>
+                <label><input type="radio" name="q1" value="2"> B. 迅速集結隊伍並進行簡單的部署後行動</label><br>
+                <label><input type="radio" name="q1" value="1"> C. 先再次確認求救信息的真實性，以免陷入陷阱</label><br>
+                <label><input type="radio" name="q1" value="0"> D. 請求上級指示而後行動</label><br>
+                <button type="button" onclick="nextQuestion(1)">下一題</button>
+            </div>
+            
+            <div class="question" id="question2" style="display:none;">
+                <p>你和你的團隊在廢墟中遭遇了一群武力抵抗者，如何應對？</p>
+                <label><input type="radio" name="q2" value="3" required> A. 毫不猶豫地迎戰，爭取時間</label><br>
+                <label><input type="radio" name="q2" value="2"> B. 快速尋找掩護，制定反擊戰略</label><br>
+                <label><input type="radio" name="q2" value="1"> C. 盡量避免衝突，但如果無法避免會保護隊伍撤退</label><br>
+                <label><input type="radio" name="q2" value="0"> D. 嘗試談判，避免不必要的衝突</label><br>
+                <button type="button" onclick="nextQuestion(2)">下一題</button>
+            </div>
+            
+            <div class="question" id="question3" style="display:none;">
+                <p>當你們深入醫療資源匱乏的區域，眼前的景象是無數絕望的人們，這時你會怎麼辦？</p>
+                <label><input type="radio" name="q3" value="3" required> A. 無論多困難，也要找到每一個需要救援的人</label><br>
+                <label><input type="radio" name="q3" value="2"> B. 先尋找最迫切需要幫助的人進行救治，再逐步擴展</label><br>
+                <label><input type="radio" name="q3" value="1"> C. 先整合資源，制定一個可行的救援計劃</label><br>
+                <label><input type="radio" name="q3" value="0"> D. 感到壓力山大，開始猶豫是否能完成這項任務</label><br>
+                <button type="button" onclick="nextQuestion(3)">下一題</button>
+            </div>
+            
+            <div class="question" id="question4" style="display:none;">
+                <p>在登錄一棟廢棄的高樓時，你注意到有些異樣，這時你會？</p>
+                <label><input type="radio" name="q4" value="3" required> A. 立即警示隊伍並加強警戒</label><br>
+                <label><input type="radio" name="q4" value="2"> B. 暗中觀察情況，嘗試了解異樣來自何處</label><br>
+                <label><input type="radio" name="q4" value="1"> C. 留意異樣的同時繼續行動，但保持警惕</label><br>
+                <label><input type="radio" name="q4" value="0"> D. 只關注主要目標，不太在意其他</label><br>
+                <button type="button" onclick="nextQuestion(4)">下一題</button>
+            </div>
+            
+            <div class="question" id="question5" style="display:none;">
+                <p>一名當地居民誤會了你的意圖並對你進行指責，你會如何應對？</p>
+                <label><input type="radio" name="q5" value="3" required> A. 保持冷靜，向他解釋你的真正意圖</label><br>
+                <label><input type="radio" name="q5" value="2"> B. 嘗試聽取他的抱怨並安撫他的情緒</label><br>
+                <label><input type="radio" name="q5" value="1"> C. 默默承受，將重點放在救援行動上</label><br>
+                <label><input type="radio" name="q5" value="0"> D. 激烈反駁他的指責，捍衛自己的行動</label><br>
+                <button type="button" onclick="nextQuestion(5)">下一題</button>
+            </div>
+            
+            <div class="question" id="question6" style="display:none;">
+                <p>你們成功地帶來了一些醫療物資，但當地組織對你們抱有懷疑態度，你會如何爭取他們的信任？</p>
+                <label><input type="radio" name="q6" value="3" required> A. 展示自己過往成功的救援案例，說明自己的實力</label><br>
+                <label><input type="radio" name="q6" value="2"> B. 在行動過程中充分展示自己的專業和能力</label><br>
+                <label><input type="radio" name="q6" value="1"> C. 尋求第三方公正機構的幫助來調停</label><br>
+                <label><input type="radio" name="q6" value="0"> D. 放棄說服，專注於自己該完成的任務</label><br>
+                <button type="submit">提交</button>
+            </div>
+        </form>
+        <canvas id="radarChart" style="display:none;"></canvas>
+    </div>
+
+    <script>
+        function startQuiz() {
+            document.querySelector('.background-story').style.display = 'none';
+            document.getElementById('quiz-container').style.display = 'block';
+        }
+
+        function nextQuestion(current) {
+            const currentDiv = document.getElementById(`question${current}`);
+            const nextDiv = document.getElementById(`question${current + 1}`);
+            if (document.querySelector(`input[name="q${current}"]:checked`)) {
+                currentDiv.style.display = "none";
+                nextDiv.style.display = "block";
+            } else {
+                alert("請選擇一個選項繼續。");
+            }
+        }
+
+        document.getElementById('quiz-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const form = new FormData(e.target);
+            const scores = {
+                "行動力": parseInt(form.get('q1')) || 0,
+                "戰鬥力": parseInt(form.get('q2')) || 0,
+                "意志力": parseInt(form.get('q3')) || 0,
+                "覺察力": parseInt(form.get('q4')) || 0,
+                "防禦力": parseInt(form.get('q5')) || 0,
+                "影響力": parseInt(form.get('q6')) || 0
+            };
+
+            document.getElementById('quiz-form').style.display = "none";
+            document.getElementById('radarChart').style.display = "block";
+
+            const ctx = document.getElementById('radarChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: Object.keys(scores),
+                    datasets: [{
+                        label: '能力值',
+                        data: Object.values(scores),
+                        backgroundColor: 'rgba(0, 255, 204, 0.2)',
+                        borderColor: 'rgba(0, 255, 204, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scale: {
+                        ticks: {
+                            beginAtZero: true,
+                            max: 10
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: url('https://images.unsplash.com/photo-1555588744-8ff12c1479ca') no-repeat center center fixed;
+            background-size: cover;
+            color: #FFFF;
+        }
+        .container {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.75);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px;
+            display: none;
+        }
+        .background-story {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.75);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px;
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            color: #00ffcc;
+        }
+        p {
+            margin-bottom: 20px;
+            font-size: 1.2em;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: #00ffcc;
+            color: #000;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        button:hover {
+            background-color: #00cc99;
+        }
+    </style>
+</body>
+</html>
